@@ -1,7 +1,7 @@
 Nekoimg
 =======
 
-A CakePHP Plugin to display cat image from Flickr
+A CakePHP Plugin to display kitten photo from Flickr
 
 Usage
 -----
