@@ -19,7 +19,7 @@ define('TAGS','kitten');
 
 class NekoimgComponent extends Component {
 
-	protected $api_key = YOUR_FLICKR_API_KYE;
+	protected $api_key = YOUR_FLICKR_API_KEY;
 	protected $Controller = null;
 	protected $HttpSocket = null;
 	protected $photo = array();
