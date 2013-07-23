@@ -5,17 +5,31 @@ A CakePHP Plugin to display kitten photo from Flickr
 
 Usage
 -----
-There are 2 ways to install this plugin.
 
-###Download zip
+###Before the installation...
+Sign up Flickr if you haven't already.  
+http://www.flickr.com/signup  
+
+Get an API Key here.   
+http://www.flickr.com/services/
+
+###Download
+
+####Download zip
 Download zip and unpack the file.  
 Create Nekoimg directory in your APP/Plugin. Then move unpacked files to APP/Plugin/Nekoimg.
 
-###Install as a submodule
+####Install as a submodule
 
     git submodule add git@github.com:sigesaba/Nekoimg.git app/Plugin/Nekoimg
     
-###Setting
+###Set up
+####Place your API Key
+Place your Flickr API Key in APP/Plugin/Nekoimg/Controller/Component/NekoimgComponent.php
+
+    protected $api_key = YOUR_FLICKR_API_KEY;
+
+
 ####Load the plugin
 Load the plugin in APP/Config/bootstrap.php.
 
@@ -43,3 +57,4 @@ $licenseInfo includes photo's owner name and photo title.
     <div>
     <?php echo $licenseInfo;?>
     </div>
+
