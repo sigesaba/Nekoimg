@@ -4,15 +4,15 @@ App::uses('Controller', 'Controller');
 App::uses('CakeRequest', 'Network');
 App::uses('CakeResponse', 'Network');
 App::uses('ComponentCollection', 'Controller');
-App::uses('NekoComponent', 'Neko.Controller/Component');
+App::uses('NekoimgComponent', 'Nekoimg.Controller/Component');
 
 // A fake controller to test against
-class TestNekoController extends Controller {
+class TestNekoimgController extends Controller {
 
 }
 
 class NekoimgComponentTest extends CakeTestCase {
-	public $NekoComponent = null;
+	public $NekoimgComponent = null;
 	public $Controller = null;
 	public $photosData = array(
 			'photos' => array(
@@ -122,75 +122,75 @@ class NekoimgComponentTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 		$Collection = new ComponentCollection();
-		$this->NekoComponent = new NekoComponent($Collection);
+		$this->NekoimgComponent = new NekoimgComponent($Collection);
 		$CakeRequest = new CakeRequest();
 		$CakeResponse = new CakeResponse();
-		$this->Controller = new TestNekoController($CakeRequest, $CakeResponse);
-		$this->NekoComponent->startup($this->Controller);
+		$this->Controller = new TestNekoimgController($CakeRequest, $CakeResponse);
+		$this->NekoimgComponent->startup($this->Controller);
 	}
 
 	/**
 	 * @expectedException
 	 */
 	function testPhotoDataException() {
-		$this->NekoComponent->chkFlickrErr($this->photosData);
+		$this->NekoimgComponent->chkFlickrErr($this->photosData);
 	}
 
 	/**
 	 * @expectedException NotFoundException
 	 */
 	function testInvalidAPIKeyException() {
-		$this->NekoComponent->chkFlickrErr($this->errPhotoData);
+		$this->NekoimgComponent->chkFlickrErr($this->errPhotoData);
 	}
 
 	function testSetPhotosData() {
-		$this->NekoComponent->setPhotoData($this->photosData);
-		$this->assertNotEmpty ($this->NekoComponent->photo);
+		$this->NekoimgComponent->setPhotoData($this->photosData);
+		$this->assertNotEmpty ($this->NekoimgComponent->photo);
 	}
 
 	/**
 	 * @expectedException NotFoundException
 	 */
 	function testUserInfoException() {
-		$this->NekoComponent->chkFlickrErr($this->errUserData);
+		$this->NekoimgComponent->chkFlickrErr($this->errUserData);
 	}
 
 	function testSetUserData() {
-		$this->NekoComponent->setUserData($this->userData);
-		$this->assertNotEmpty ($this->NekoComponent->userName);
-		$this->assertEqual ('Hoge', $this->NekoComponent->userName);
+		$this->NekoimgComponent->setUserData($this->userData);
+		$this->assertNotEmpty ($this->NekoimgComponent->userName);
+		$this->assertEqual ('Hoge', $this->NekoimgComponent->userName);
 	}
 
 	function testCreateImgUri() {
-		$this->NekoComponent->setPhotoData($this->photosData);
-		$this->NekoComponent->setUserData($this->userData);
-		$this->NekoComponent->createImgUri();
-		$this->assertNotEmpty ($this->NekoComponent->imgUri);
+		$this->NekoimgComponent->setPhotoData($this->photosData);
+		$this->NekoimgComponent->setUserData($this->userData);
+		$this->NekoimgComponent->createImgUri();
+		$this->assertNotEmpty ($this->NekoimgComponent->imgUri);
 		$pattern = '/http:\/\/farm[0-2]\.staticflickr\.com\/[0-2]\/000000[0-2]_000000000[0-2]\.jpg/';
-		$this->assertRegExp($pattern, $this->NekoComponent->imgUri);
+		$this->assertRegExp($pattern, $this->NekoimgComponent->imgUri);
 	}
 
-	function testSetLicenseInfo() {
-		$this->NekoComponent->setPhotoData($this->photosData);
-		$this->NekoComponent->setUserData($this->userData);
-		$this->NekoComponent->setLicenseInfo();
-		$this->assertNotEmpty ($this->NekoComponent->licenseInfo);
+	function testSetCreditInfo() {
+		$this->NekoimgComponent->setPhotoData($this->photosData);
+		$this->NekoimgComponent->setUserData($this->userData);
+		$this->NekoimgComponent->setCreditInfo();
+		$this->assertNotEmpty ($this->NekoimgComponent->creditInfo);
 	}
 
 	function testCreateImgTag() {
-		$this->NekoComponent->setPhotoData($this->photosData);
-		$this->NekoComponent->setUserData($this->userData);
-		$this->NekoComponent->createImgUri();
-		$this->NekoComponent->setLicenseInfo();
-		$this->NekoComponent->imgSize = array(0 => 100, 1 => 200);
-		$this->NekoComponent->createImgTag();
+		$this->NekoimgComponent->setPhotoData($this->photosData);
+		$this->NekoimgComponent->setUserData($this->userData);
+		$this->NekoimgComponent->createImgUri();
+		$this->NekoimgComponent->setCreditInfo();
+		$this->NekoimgComponent->imgSize = array(0 => 100, 1 => 200);
+		$this->NekoimgComponent->createImgTag();
 		$matcher = array(
 			'tag'        => 'img',
 			'attributes' => array(
-				'src' => $this->NekoComponent->imgUri,
+				'src' => $this->NekoimgComponent->imgUri,
 				'width' => '100',
 				'height' => '200')
 		);
-		$this->assertTag($matcher, $this->NekoComponent->imgNeko);
+		$this->assertTag($matcher, $this->NekoimgComponent->imgNeko);
 	}
 }
