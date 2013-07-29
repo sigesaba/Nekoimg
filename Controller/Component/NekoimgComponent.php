@@ -25,7 +25,7 @@ class NekoimgComponent extends Component {
 	protected $photo = array();
 	protected $userName = null;
 	protected $imgUri = null;
-	protected $lisenceInfo = null;
+	protected $creditInfo = null;
 	protected $imgNeko = null;
 	public $imgSize = array();
 
@@ -66,12 +66,12 @@ class NekoimgComponent extends Component {
 		$this->createImgUri();
 		$this->getImgSize();
 
-		$this->setLicenseInfo();
+		$this->setCreditInfo();
 		$this->createImgTag();
 
 		$imgNeko = $this->imgNeko;
-		$licenseInfo = $this->licenseInfo;
-		$this->Controller->set(compact("imgNeko", "licenseInfo"));
+		$creditInfo = $this->creditInfo;
+		$this->Controller->set(compact("imgNeko", "creditInfo"));
 	}
 
 /**
@@ -177,14 +177,14 @@ class NekoimgComponent extends Component {
 	}
 
 /**
- * setLicenseInfo
- * set photo license infomation to a variable
+ * setCreditInfo
+ * set photo credit infomation to a variable
  *
  * @param
  * @return void
  */
-	public function setLicenseInfo() {
-		$this->licenseInfo = $this->photo['title'] . "&nbsp;by&nbsp;" . $this->userName;
+	public function setCreditInfo() {
+		$this->creditInfo = $this->photo['title'] . "&nbsp;by&nbsp;" . $this->userName;
 	}
 
 /**
@@ -202,7 +202,7 @@ class NekoimgComponent extends Component {
 		$this->imgNeko .= '" height="';
 		$this->imgNeko .= $this->imgSize[1];
 		$this->imgNeko .= '" alt="';
-		$this->imgNeko .= $this->licenseInfo;
+		$this->imgNeko .= $this->creditInfo;
 		$this->imgNeko .= '">';
 	}
 

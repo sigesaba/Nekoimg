@@ -51,10 +51,10 @@ or
     
 ####Display in a View file
 $imgNeko includes <img> tag.   
-$licenseInfo includes photo's owner name and photo title.
+$creditInfo includes photo's owner name and photo title.
     
     <?php echo $imgNeko;?>
     <div>
-    <?php echo $licenseInfo;?>
+    <?php echo $creditInfo;?>
     </div>
 
